@@ -1,33 +1,28 @@
 package com.bridgelabz.messaging_app.controller;
 
+import com.bridgelabz.messaging_app.model.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
-
-    // GET Request
     @GetMapping
-    public String sayHello() {
-        return "Hello from BridgeLabz";
+    public String sayHello(){return "Hello from BridgeLabz";}
+    @GetMapping("/query")
+    public String sayHello(@RequestParam String name) {
+        return "Hello " + name + " from BridgeLabz";
     }
-
-    // POST Request
-    @PostMapping
-    public String sayHelloPost(@RequestBody String name) {
-        return "Hello, " + name + " from BridgeLabz";
+    @GetMapping("/param/{name}")
+    public String print(@PathVariable("name") String name ){
+        return "Hello "+name;
     }
-
-    // PUT Request
-    @PutMapping
-    public String sayHelloPut(@RequestBody String name) {
-        return "Hello, " + name + "! Your data has been updated.";
+    @PostMapping("/post")
+    public String sayHello(@RequestBody User user){
+        return "Hello " + user.getFirstName() + " " + user.getLastName() + " from BridgeLabz";
     }
-
-    // DELETE Request
-    @DeleteMapping("/{name}")
-    public String sayHelloDelete(@PathVariable String name) {
-        return "Goodbye, " + name + "! Your data has been deleted.";
+    @PutMapping("/put/{firstName}")
+    public String sayHello(@PathVariable("firstName") String firstName, @RequestParam("lastName") String lastName){
+        return "Hello "+firstName+" "+lastName;
     }
 }
 
